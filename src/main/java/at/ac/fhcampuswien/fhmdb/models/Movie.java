@@ -8,6 +8,7 @@ import java.util.UUID;
 public class Movie {
     private final String id;
     private final String title;
+    private String apiId;
     private final String description;
     private final List<Genre> genres;
     private final int releaseYear;
@@ -21,6 +22,18 @@ public class Movie {
     @Override
     public String toString() {
         return this.title;
+    }
+
+    public Movie(String id, String apiId, String title, String description, List<Genre> genres, int releaseYear, String imgUrl, int lengthInMinutes, double rating) {
+        this.id = id;
+        this.apiId = apiId;
+        this.title = title;
+        this.description = description;
+        this.genres = genres;
+        this.releaseYear = releaseYear;
+        this.imgUrl = imgUrl;
+        this.lengthInMinutes = lengthInMinutes;
+        this.rating = rating;
     }
 
     public Movie(String title, String description, List<Genre> genres) {
@@ -100,6 +113,10 @@ public class Movie {
 
     public double getRating() {
         return rating;
+    }
+
+    public String getApiId() {
+        return apiId;
     }
 
     public static List<Movie> initializeMovies(){
