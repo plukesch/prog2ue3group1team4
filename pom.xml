@@ -66,16 +66,16 @@
             <version>1.4.200</version>  <!-- Check for the latest version -->
         </dependency>
 
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-core</artifactId>
-            <version>5.1</version>  <!-- Check for the latest version -->
-        </dependency>
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-jdbc</artifactId>
-            <version>5.1</version>  <!-- Check for the latest version -->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.j256.ormlite</groupId>-->
+<!--            <artifactId>ormlite-core</artifactId>-->
+<!--            <version>5.1</version>  &lt;!&ndash; Check for the latest version &ndash;&gt;-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.j256.ormlite</groupId>-->
+<!--            <artifactId>ormlite-jdbc</artifactId>-->
+<!--            <version>5.1</version>  &lt;!&ndash; Check for the latest version &ndash;&gt;-->
+<!--        </dependency>-->
 
     </dependencies>
 

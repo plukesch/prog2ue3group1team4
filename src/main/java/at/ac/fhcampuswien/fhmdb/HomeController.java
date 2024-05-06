@@ -12,9 +12,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Function;
@@ -48,6 +55,12 @@ public class HomeController implements Initializable {
 
     protected SortedState sortedState;
 
+    @FXML
+    public VBox menuVBox;
+
+    @FXML
+    public VBox aboutVBox;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeState();
@@ -80,6 +93,10 @@ public class HomeController implements Initializable {
     }
 
     public void initializeLayout() {
+
+        menuVBox.setVisible(false);
+        aboutVBox.setVisible(false);
+
         movieListView.setItems(observableMovies);   // set the items of the listview to the observable list
         movieListView.setCellFactory(movieListView -> new MovieCell()); // apply custom cells to the listview
 
@@ -242,5 +259,21 @@ public class HomeController implements Initializable {
         return movies.stream()
                 .filter(movie -> movie.getReleaseYear() >= startYear && movie.getReleaseYear() <= endYear)
                 .collect(Collectors.toList());
+    }
+
+    public void openMenu(ActionEvent event){
+        menuVBox.setVisible(true);
+    }
+
+    public void closeMenu(ActionEvent event){
+        menuVBox.setVisible(false);
+    }
+
+    public void openAbout(ActionEvent event){
+        aboutVBox.setVisible(true);
+    }
+
+    public void closeAbout(ActionEvent event){
+        aboutVBox.setVisible(false);
     }
 }

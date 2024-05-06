@@ -1,4 +1,4 @@
-package at.ac.fhcampuswien.fhmdb.database;
+/*package at.ac.fhcampuswien.fhmdb.database;
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -41,5 +41,5 @@ public class WatchlistRepository {
             return 0;  // Return 0 to indicate failure
         }
     }
-}
+}*/
 

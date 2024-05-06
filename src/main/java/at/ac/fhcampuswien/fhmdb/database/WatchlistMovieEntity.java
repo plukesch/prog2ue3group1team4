@@ -1,4 +1,4 @@
-package at.ac.fhcampuswien.fhmdb.database;
+/*package at.ac.fhcampuswien.fhmdb.database;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -18,5 +18,5 @@ public class WatchlistMovieEntity {
     public WatchlistMovieEntity(String apiId) {
         this.apiId = apiId;
     }
-}
+}*/
 
