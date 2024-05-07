@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.fhmdb;
 
 import at.ac.fhcampuswien.fhmdb.Exceptions.DatalayerException;
+import at.ac.fhcampuswien.fhmdb.Exceptions.MovieApiException;
 import at.ac.fhcampuswien.fhmdb.api.MovieAPI;
 import at.ac.fhcampuswien.fhmdb.database.WatchlistRepository;
 import at.ac.fhcampuswien.fhmdb.models.Genre;
@@ -99,6 +100,7 @@ public class HomeController implements Initializable {
     }
 
     public void initializeState() {
+        try {
         List<Movie> result = MovieAPI.getAllMovies();
         setMovies(result);
         setMovieList(result);
@@ -121,6 +123,9 @@ public class HomeController implements Initializable {
         List<Movie> between = getMoviesBetweenYears(allMovies, 1994, 2000);
         System.out.println(between.size());
         System.out.println(between.stream().map(Objects::toString).collect(Collectors.joining(", ")));
+        } catch (MovieApiException movieApiException){
+            MovieCell.showExceptionDialog(movieApiException);
+        }
     }
 
     public void initializeLayout() {
@@ -252,7 +257,12 @@ public class HomeController implements Initializable {
     }
 
     public List<Movie> getMovies(String searchQuery, Genre genre, String releaseYear, String ratingFrom) {
-        return MovieAPI.getAllMovies(searchQuery, genre, releaseYear, ratingFrom);
+        try {
+            return MovieAPI.getAllMovies(searchQuery, genre, releaseYear, ratingFrom);
+        } catch (MovieApiException movieApiException) {
+            MovieCell.showExceptionDialog(movieApiException);
+        }
+        return new ArrayList<>();
     }
 
     public void sortBtnClicked(ActionEvent actionEvent) {

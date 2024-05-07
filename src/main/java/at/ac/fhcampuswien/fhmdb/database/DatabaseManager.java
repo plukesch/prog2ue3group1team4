@@ -11,11 +11,10 @@ import java.sql.SQLException;
 
 public class DatabaseManager {
     private static String DB_URL = "jdbc:h2:file: ./db/moviesDB";
-    private static String username = "User";  //
+    private static String username = "Username";  //
     private static String password = "Password";  //
     private static ConnectionSource conn;
     private Dao<MovieEntity, Long> movieDao;
-    private Dao<WatchlistMovieEntity, Long> watchlistDao;
     private static DatabaseManager instance;
 
     private DatabaseManager() {
