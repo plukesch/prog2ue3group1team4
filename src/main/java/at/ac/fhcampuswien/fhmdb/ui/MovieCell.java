@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.fhmdb.ui;
 
+import at.ac.fhcampuswien.fhmdb.ClickEventHandler;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
@@ -17,13 +18,16 @@ public class MovieCell extends ListCell<Movie> {
     private final Label detail = new Label();
     private final Label genre = new Label();
     private final JFXButton detailBtn = new JFXButton("Show Details");
-    private final JFXButton watchlistBtn = new JFXButton("Watchlist");
+    private final JFXButton watchlistBtn = new JFXButton("Add to watchlist");
     private final JFXButton menuBtn = new JFXButton("Menu");
     private final VBox layout = new VBox(title, detail, genre, detailBtn, watchlistBtn);
     private boolean collapsedDetails = true;
 
-    public MovieCell() {
+    private final boolean isWatchlistCell;
+
+    public MovieCell(boolean isWatchlistCell, ClickEventHandler addToWatchlistClicked) {
         super();
+        this.isWatchlistCell = isWatchlistCell;
         // color scheme
         detailBtn.setStyle("-fx-background-color: #f5c518;");
         title.getStyleClass().add("text-yellow");
@@ -55,8 +59,10 @@ public class MovieCell extends ListCell<Movie> {
             setGraphic(layout);
         });
 
-        watchlistBtn.setOnMouseClicked(mouseEvent -> {
 
+        watchlistBtn.setText(isWatchlistCell ? "Remove" : "Add to watchlist");
+        watchlistBtn.setOnMouseClicked(mouseEvent -> {
+            addToWatchlistClicked.onClick(getItem(), isWatchlistCell, watchlistBtn);
         });
     }
 
@@ -105,12 +111,18 @@ public class MovieCell extends ListCell<Movie> {
         writers.getStyleClass().add("text-white");
         mainCast.getStyleClass().add("text-white");
 
-        details.getChildren().add(releaseYear);
-        details.getChildren().add(rating);
-        details.getChildren().add(length);
-        details.getChildren().add(directors);
-        details.getChildren().add(writers);
-        details.getChildren().add(mainCast);
+        if (isWatchlistCell){
+            details.getChildren().add(releaseYear);
+            details.getChildren().add(rating);
+            details.getChildren().add(length);
+        } else {
+            details.getChildren().add(releaseYear);
+            details.getChildren().add(rating);
+            details.getChildren().add(length);
+            details.getChildren().add(directors);
+            details.getChildren().add(writers);
+            details.getChildren().add(mainCast);
+        }
         return details;
     }
     @Override

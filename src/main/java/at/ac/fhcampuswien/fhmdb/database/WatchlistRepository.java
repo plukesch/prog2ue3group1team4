@@ -22,25 +22,20 @@ public class WatchlistRepository {
         }
     }
 
-    public int addToWatchlist(MovieEntity movie) {
-        try {
-            return dao.create(movie);
-        } catch (SQLException e) {
-            System.err.println("Error adding movie to watchlist: " + e.getMessage());
-            return 0;  // Return 0 to indicate failure
+    public void addToWatchlist(Movie movie) throws SQLException {
+        String title = movie.getTitle().replace("'", "''");
+        if (dao.queryForEq("title", title).isEmpty()) {
+            dao.create(movieToEntity(movie));
+            System.out.println("Added " + movie.getTitle() + " to Watchlist");
         }
     }
 
-    public int removeFromWatchlist(String apiId) {
-        try {
-            List<MovieEntity> entries = dao.queryForEq("apiId", apiId);
-            if (!entries.isEmpty()) {
-                return dao.delete(entries);
-            }
-            return 0;  // No entries found to delete
-        } catch (SQLException e) {
-            System.err.println("Error removing movie from watchlist: " + e.getMessage());
-            return 0;  // Return 0 to indicate failure
+    public void removeFromWatchlist(Movie movie) throws SQLException {
+        String title = movie.getTitle().replace("'", "''");
+        List<MovieEntity> movies = dao.queryForEq("title", title);
+        if (!movies.isEmpty()) {
+            dao.delete(movies);
+            System.out.println("Deleted " + movie.getTitle() + " from Watchlist");
         }
     }
 
