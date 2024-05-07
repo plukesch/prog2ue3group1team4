@@ -119,6 +119,10 @@ public class Movie {
         return apiId;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
         movies.add(new Movie(

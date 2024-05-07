@@ -1,17 +1,19 @@
 package at.ac.fhcampuswien.fhmdb.database;
+import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
 public class WatchlistRepository {
-    private final Dao<WatchlistMovieEntity, Long> dao;
+    private final Dao<MovieEntity, Long> dao;
 
-    public WatchlistRepository(Dao<WatchlistMovieEntity, Long> dao) {
-        this.dao = dao;
+    public WatchlistRepository()
+    {
+        this.dao = DatabaseManager.getInstance().getDao();
     }
 
-    public List<WatchlistMovieEntity> getWatchlist() {
+    public List<MovieEntity> getWatchlist() {
         try {
             return dao.queryForAll();
         } catch (SQLException e) {
@@ -20,7 +22,7 @@ public class WatchlistRepository {
         }
     }
 
-    public int addToWatchlist(WatchlistMovieEntity movie) {
+    public int addToWatchlist(MovieEntity movie) {
         try {
             return dao.create(movie);
         } catch (SQLException e) {
@@ -31,7 +33,7 @@ public class WatchlistRepository {
 
     public int removeFromWatchlist(String apiId) {
         try {
-            List<WatchlistMovieEntity> entries = dao.queryForEq("apiId", apiId);
+            List<MovieEntity> entries = dao.queryForEq("apiId", apiId);
             if (!entries.isEmpty()) {
                 return dao.delete(entries);
             }
@@ -40,6 +42,11 @@ public class WatchlistRepository {
             System.err.println("Error removing movie from watchlist: " + e.getMessage());
             return 0;  // Return 0 to indicate failure
         }
+    }
+
+    private MovieEntity movieToEntity(Movie movie)
+    {
+        return new MovieEntity(movie.getId(), movie.getTitle(), movie.getDescription(), MovieEntity.genresToString(movie.getGenres()), movie.getReleaseYear(), movie.getImgUrl(), movie.getLengthInMinutes(), movie.getRating());
     }
 }
 

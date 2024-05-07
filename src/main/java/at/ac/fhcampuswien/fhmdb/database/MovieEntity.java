@@ -43,11 +43,11 @@ public class MovieEntity {
         // ORMLite needs a no-arg constructor
     }
 
-    public MovieEntity(String apiId, String title, String description, List<String> genres, int releaseYear, String imgUrl, int lengthInMinutes, double rating) {
+    public MovieEntity(String apiId, String title, String description, String genres, int releaseYear, String imgUrl, int lengthInMinutes, double rating) {
         this.apiId = apiId;
         this.title = title;
         this.description = description;
-        this.genres = String.join(",", genres);
+        this.genres = genres;
         this.releaseYear = releaseYear;
         this.imgUrl = imgUrl;
         this.lengthInMinutes = lengthInMinutes;
@@ -99,37 +99,20 @@ public class MovieEntity {
         this.genres = String.join(",", genres);
     }
 
-    public List<Genre> parseGenres() {
-        if (genres == null || genres.trim().isEmpty()) {
-            return Collections.emptyList();
+    public static String genresToString(List<Genre> genres) {
+
+        String result = "";
+        for (var item: genres) {
+            result += item.toString() + ",";
         }
-        return Arrays.stream(genres.split(","))
-                .map(String::trim)
+        return result;
+    }
+
+    public Movie toMovie() {
+        List<Genre> genres = Arrays.stream(this.genres.split(","))
                 .map(Genre::valueOf)
                 .collect(Collectors.toList());
-    }
-
-
-    public static List<MovieEntity> fromMovies(List<Movie> movies) {
-        return movies.stream()
-                .map(movie -> new MovieEntity(movie.getApiId(), movie.getTitle(), movie.getDescription(),
-                        movie.getGenres().stream().map(Genre::name).collect(Collectors.toList()),
-                        movie.getReleaseYear(), movie.getImgUrl(), movie.getLengthInMinutes(),
-                        movie.getRating()))
-                .collect(Collectors.toList());
-    }
-    public static List<Movie> toMovies(List<MovieEntity> movieEntities) {
-        return movieEntities.stream().map(movieEntity -> new Movie(
-                String.valueOf(movieEntity.getId()),
-                movieEntity.getApiId(),
-                movieEntity.getTitle(),
-                movieEntity.getDescription(),
-                movieEntity.parseGenres(), // Assumes a method to convert comma-separated String back to List
-                movieEntity.getReleaseYear(),
-                movieEntity.getImgUrl(),
-                movieEntity.getLengthInMinutes(),
-                movieEntity.getRating()
-        )).collect(Collectors.toList());
+        return new Movie(apiId, title, description, genres, releaseYear, imgUrl, lengthInMinutes, rating);
     }
 }
 
