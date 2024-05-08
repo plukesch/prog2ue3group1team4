@@ -25,7 +25,7 @@ public class WatchlistController {
     @FXML
     public VBox mainPane;
     @FXML
-    public JFXListView movieWatchlistView;
+    public JFXListView watchlistView;
     private WatchlistRepository repository = new WatchlistRepository();
 
     private final ClickEventHandler onAddToWatchlistClicked = (clickedItem, isWatchlistCell, addToWatchlistBtn) -> {
@@ -53,7 +53,7 @@ public class WatchlistController {
     public void initialize() {
         System.out.println("WatchlistController initialized");
 
-        List<MovieEntity> watchlist = new ArrayList<>();
+        List<MovieEntity> watchlist;
 
         watchlist = repository.getWatchlist();
 
@@ -63,11 +63,11 @@ public class WatchlistController {
                         .collect(Collectors.toList())
         );
 
-        movieWatchlistView.setItems(movies);
-        movieWatchlistView.setCellFactory(movieListView -> new MovieCell(true, onAddToWatchlistClicked));
+        watchlistView.setItems(movies);
+        watchlistView.setCellFactory(movieListView -> new MovieCell(true, onAddToWatchlistClicked));
     }
 
-    public void loadHomeView() {
+    public void switchToHomeView() {
         FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("home-view.fxml"));
         try{
             Scene scene = new Scene(fxmlLoader.load(), 890, 620);

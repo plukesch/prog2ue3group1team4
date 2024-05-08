@@ -21,9 +21,9 @@
                 </padding>
             </Label>
             <Label styleClass="text-white" stylesheets="@styles.css" text="Welcome to FHMDb!" />
-            <Button fx:id="homeViewBtn" mnemonicParsing="false" onAction="#loadHomeView" styleClass="background-yellow" stylesheets="@styles.css" text="Home" />
+            <Button fx:id="homeViewBtn" mnemonicParsing="false" onAction="#switchToHomeView" styleClass="background-yellow" stylesheets="@styles.css" text="Home" />
 
         </children>
     </HBox>
-    <JFXListView fx:id="movieWatchlistView" styleClass="background-light-black" stylesheets="@styles.css" VBox.vgrow="ALWAYS" />
+    <JFXListView fx:id="watchlistView" styleClass="background-light-black" stylesheets="@styles.css" VBox.vgrow="ALWAYS" />
 </VBox>

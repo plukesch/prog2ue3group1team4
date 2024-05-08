@@ -55,13 +55,13 @@
 
    <VBox fx:id="menuVBox" prefHeight="331.0" minWidth="100.0" maxWidth="100.0"  style="-fx-background-color: white;">
       <JFXButton minWidth="100.0" text="Home" style="-fx-font-size: 14px;" onAction="#closeMenu"/>
-      <JFXButton minWidth="100.0" text="Watchlist" style="-fx-font-size: 14px;" onAction="#loadWatchlistView"/>
+      <JFXButton minWidth="100.0" text="Watchlist" style="-fx-font-size: 14px;" onAction="#switchToWatchlistView"/>
       <JFXButton minWidth="100.0" text="About" style="-fx-font-size: 14px;" onAction="#openAbout"/>
    </VBox>
 
    <VBox fx:id="aboutVBox" prefHeight="331.0" style="-fx-background-color: white;">
       <JFXButton minWidth="100.0" text="Home" style="-fx-font-size: 14px;" onAction="#closeAbout"/>
-      <JFXButton minWidth="100.0" text="Watchlist" style="-fx-font-size: 14px;"/>
+      <JFXButton minWidth="100.0" text="Watchlist" style="-fx-font-size: 14px;" onAction="#switchToWatchlistView"/>
       <JFXButton minWidth="100.0" text="About" style="-fx-font-size: 14px;" />
       <Text   text="created by Noah Pieler and Patrick Lukesch :)" textAlignment="RIGHT"/>
    </VBox>
