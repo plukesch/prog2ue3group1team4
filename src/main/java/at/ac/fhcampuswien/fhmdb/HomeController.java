@@ -327,4 +327,16 @@ public class HomeController implements Initializable {
             MovieCell.showExceptionDialog(new IllegalArgumentException("Watchlist cannot be loaded"));
         }
     }
+
+    public void switchToHomeView() {
+        FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("home-view.fxml"));
+        try{
+            Scene scene = new Scene(fxmlLoader.load(), 890, 620);
+            Stage stage = (Stage)mainPane.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException e) {
+            MovieCell.showExceptionDialog(new IllegalArgumentException("Error while loading"));
+        }
+    }
 }
